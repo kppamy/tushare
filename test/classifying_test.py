@@ -24,24 +24,24 @@ class Test(unittest.TestCase):
     def test_get_area_classified(self):
         print(fd.get_area_classified())
         
-    def test_get_gem_classified(self):
-        print(fd.get_gem_classified())
-        
-    def test_get_sme_classified(self):
-        print(fd.get_sme_classified())
-        
-    def test_get_st_classified(self):
-        print(fd.get_st_classified())
-    
-    def test_get_hs300s(self):
-        print(fd.get_hs300s())   
-        
-    def test_get_sz50s(self):
-        print(fd.get_sz50s()) 
-      
-    def test_get_zz500s(self):
-        print(fd.get_zz500s())   
-        
+    #def test_get_gem_classified(self):
+    #    print(fd.get_gem_classified())
+    #    
+    #def test_get_sme_classified(self):
+    #    print(fd.get_sme_classified())
+    #    
+    #def test_get_st_classified(self):
+    #    print(fd.get_st_classified())
+    #
+    #def test_get_hs300s(self):
+    #    print(fd.get_hs300s())   
+    #    
+    #def test_get_sz50s(self):
+    #    print(fd.get_sz50s()) 
+    #  
+    #def test_get_zz500s(self):
+    #    print(fd.get_zz500s())   
+    #    
 if __name__ == "__main__":
     unittest.main()
     

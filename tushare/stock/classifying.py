@@ -9,6 +9,7 @@ Created on 2015/02/01
 """
 
 import pandas as pd
+from pandas import DataFrame as pdf
 from tushare.stock import cons as ct
 from tushare.stock import ref_vars as rv
 import json
@@ -45,13 +46,17 @@ def get_industry_classified(standard='sina'):
     else:
         df = _get_type_data(ct.SINA_INDUSTRY_INDEX_URL%(ct.P_TYPE['http'],
                                                     ct.DOMAINS['vsf'], ct.PAGES['ids']))
+    df.to_csv('industry.csv')
     data = []
     ct._write_head()
+    items=(df.values)[:10]
     for row in df.values:
         rowDf =  _get_detail(row[0], retry_count=10, pause=0.01)
         rowDf['c_name'] = row[1]
         data.append(rowDf)
     data = pd.concat(data, ignore_index=True)
+    tmp=pdf(data)
+    tmp.to_csv('industry_detail.csv')
     return data
         
 
@@ -68,6 +73,8 @@ def get_concept_classified():
     ct._write_head()
     df = _get_type_data(ct.SINA_CONCEPTS_INDEX_URL%(ct.P_TYPE['http'],
                                                     ct.DOMAINS['sf'], ct.PAGES['cpt']))
+
+    df.to_csv('concept.csv')
     data = []
     for row in df.values:
         rowDf =  _get_detail(row[0])
@@ -76,6 +83,8 @@ def get_concept_classified():
             data.append(rowDf)
     if len(data) > 0:
         data = pd.concat(data, ignore_index=True)
+    tmp=pdf(data)
+    tmp.to_csv('concept_detail.csv')
     return data
 
 
@@ -93,6 +102,7 @@ def get_area_classified():
     df = df[['name', 'area']]
     df.reset_index(inplace=True)
     df = df.sort_values('area').reset_index(drop=True)
+    df.to_csv('area.csv')
     return df
 
 
