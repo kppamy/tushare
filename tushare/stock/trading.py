@@ -750,11 +750,16 @@ def get_hists(symbols, start=None, end=None,
     df = pd.DataFrame()
     if isinstance(symbols, list) or isinstance(symbols, set) or isinstance(symbols, tuple) or isinstance(symbols, pd.Series):
         for symbol in symbols:
-            data = get_hist_data(symbol, start=start, end=end,
-                                 ktype=ktype, retry_count=retry_count,
-                                 pause=pause)
-            data['code'] = symbol
-            df = df.append(data, ignore_index=True)
+            try:
+                data = get_hist_data(symbol, start=start, end=end,
+                                     ktype=ktype, retry_count=retry_count,
+                                     pause=pause)
+                data['code'] = symbol
+                df = df.append(data, ignore_index=True)
+                print("download "+symbol+" successful")
+            except:
+                print("download "+symbol+" exception   save data loaded")
+                return df
         return df
     else:
         return None
