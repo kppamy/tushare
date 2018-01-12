@@ -748,6 +748,9 @@ def get_hists(symbols, start=None, end=None,
     批量获取历史行情数据，具体参数和返回数据类型请参考get_hist_data接口
     """
     df = pd.DataFrame()
+    success = 0
+    fail = 0
+    fail_records = []
     if isinstance(symbols, list) or isinstance(symbols, set) or isinstance(symbols, tuple) or isinstance(symbols, pd.Series):
         for symbol in symbols:
             try:
@@ -755,14 +758,17 @@ def get_hists(symbols, start=None, end=None,
                                      ktype=ktype, retry_count=retry_count,
                                      pause=pause)
                 data['code'] = symbol
+                data.reset_index(inplace=True)
                 df = df.append(data, ignore_index=True)
-                print("download "+symbol+" successful")
+                success = success + 1
+                print("download "+symbol+" successful No. " + str(success))
             except:
-                print("download "+symbol+" exception   save data loaded")
-                return df
-        return df
+                fail = fail + 1
+                fail_records. append(symbol)
+                print("download "+symbol+" exception  No. " + str(fail))
+        return df, fail_records
     else:
-        return None
+        return None, None
   
   
 def get_day_all(date=None):
